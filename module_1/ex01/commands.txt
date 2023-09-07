@@ -1,1 +1,11 @@
 Some linux commands
+1) source - The Linux source command lets you run a list of commands from a text file or script.
+2)touch - create empty file
+3) chown - change file owner
+4)whereis - shows path to file
+5) wc - count symbols, words in text
+6)uptime - время после последнего пробуждения системы
+7)ps - list of running processes
+8)sleep x - sleep after x ms
+9)stat - shows owners and groups of file
+10)lsof - shows files used by processes
