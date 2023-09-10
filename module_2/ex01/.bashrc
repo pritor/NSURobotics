@@ -117,4 +117,4 @@ if ! shopt -oq posix; then
 fi
 
 source /opt/ros/humble/setup.bash
-source /opt/ros/humble/local_setup.bash
+source ~/ros2_ws/install/local_setup.bash
