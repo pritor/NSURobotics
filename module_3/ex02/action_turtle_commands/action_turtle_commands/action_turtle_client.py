@@ -39,7 +39,7 @@ class CommandsActionClient(Node):
     def get_result_callback(self, future):
         result = future.result().result
         self.get_logger().info('Result: ' + str(result.result))
-        rclpy.shutdown()
+        # rclpy.shutdown()
 
 
 def main(args=None):
@@ -47,11 +47,14 @@ def main(args=None):
 
     action_client = CommandsActionClient()
 
+    action_client.send_goal('turn_right', 90)
     action_client.send_goal('forward', 2)
-    action_client.send_goal('forward', 3)
-    action_client.send_goal('forward', 5)
-
-    rclpy.spin(action_client)
+    action_client.send_goal('forward', 1)
+    try:
+        rclpy.spin(action_client)
+    except KeyboardInterrupt:
+        print('Interrupted')
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

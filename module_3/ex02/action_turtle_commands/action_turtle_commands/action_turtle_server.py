@@ -1,5 +1,6 @@
 import time
 
+import numpy as np
 import rclpy
 from rclpy.action import ActionServer
 from rclpy.node import Node
@@ -32,21 +33,19 @@ class CommandsActionServer(Node):
                 goal_handle.publish_feedback(feedback_msg)
                 time.sleep(1)
         elif goal_handle.request.command == 'turn_right':
-            vel.angular.z = -1.0
-            for i in range(1, goal_handle.request.angle+1):
-                feedback_msg.odom = i
-                self.get_logger().info('Feedback: %d'%feedback_msg.odom)
-                self.publisher_.publish(vel)
-                goal_handle.publish_feedback(feedback_msg)
-                time.sleep(1)
+            vel.angular.z = -np.pi/180 * goal_handle.request.angle
+            feedback_msg.odom = goal_handle.request.angle
+            self.get_logger().info('Rotated at angle to right %d'%feedback_msg.odom)
+            self.publisher_.publish(vel)
+            goal_handle.publish_feedback(feedback_msg)
+            time.sleep(1.5)
         elif goal_handle.request.command == 'turn_left':
-            vel.angular.z = 1.0
-            for i in range(1, goal_handle.request.angle+1):
-                feedback_msg.odom = i
-                self.get_logger().info('Feedback: %d'%feedback_msg.odom)
-                self.publisher_.publish(vel)
-                goal_handle.publish_feedback(feedback_msg)
-                time.sleep(1)
+            vel.angular.z = np.pi / 180 * goal_handle.request.angle
+            feedback_msg.odom = goal_handle.request.angle
+            self.get_logger().info('Rotated at angle to left %d' % feedback_msg.odom)
+            self.publisher_.publish(vel)
+            goal_handle.publish_feedback(feedback_msg)
+            time.sleep(1.5)
 
         goal_handle.succeed()
 
